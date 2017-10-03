@@ -1,5 +1,35 @@
-A PHP wrapper class for My.jdownloader.org API.
+Copyright (c) 2014 Anatoliy Kultenko "tofik".
+Modified by Dominik Schwarzbauer "R3DST0RM".
 
+A PHP wrapper class for My.JDownloader.org API.
+
+# Improvements
+
+This API is now able to queue packages to the download list.
+
+New method "moveToDownloadList":
+
+```php
+<?php
+    require_once 'myjdapi_class.php';
+
+    $jd = new MYJDAPI( "EMAIL", "PASSWORD", "DEVICENAME");
+
+    // get all packages in queue
+    $packages = $jd->queryPackages();
+    // get json from response
+    $packagesEncoded = json_decode($packages);
+
+    // iterate over every package and queue it using it's UUID
+    for ($i = 0; $i < count($packagesEncoded->{"data"}); $i++){
+        $jd->moveToDownloadList((float)($packagesEncoded->{"data"}[$i])->{"uuid"});
+    }
+?>
+```
+
+Many more improvements to come...
+
+# Initial usage based on "tofik" version
 
 Using my.jdownloader.org-api-php-class
 
